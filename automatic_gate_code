@@ -1,0 +1,42 @@
+//diy arduino code for a automatc gate system using a arduino and servo motor
+#include <Servo.h>
+int inches=0;
+int cm=0;
+int mini=150;
+long record_distance(int pin){
+  pinMode(pin,OUTPUT);
+  digitalWrite(pin,LOW);
+  delayMicroseconds(2);
+  digitalWrite(pin,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(pin,LOW);
+  pinMode(pin,INPUT);
+  return pulseIn(pin,HIGH);
+}
+Servo myServo;
+void setup(){
+  pinMode(8,INPUT);
+  pinMode(11,OUTPUT);
+  pinMode(3, OUTPUT);
+  Serial.begin(9600);
+  myServo.attach(3);
+}
+void loop(){
+  cm=0.01723*record_distance(8);
+  inches=(cm/2.54);
+  
+  if(cm< mini){
+    digitalWrite(11,HIGH);
+  	myServo.write(180);
+  	Serial.println("GATE OPEN ");}
+  else{
+    digitalWrite(11,LOW);
+  	myServo.write(0);
+  	Serial.println("GATE CLOSE");}
+  Serial.print(inches);
+  Serial.print("in, ");
+  Serial.print(cm);
+  Serial.print("cm, ");
+  delay(100);
+}
+  
