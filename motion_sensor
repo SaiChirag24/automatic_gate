@@ -1,0 +1,23 @@
+int buzz_state=0;
+void setup()
+{
+  pinMode(12, OUTPUT);
+  pinMode(3, INPUT);
+  pinMode(8, OUTPUT);
+}
+
+void loop()
+{
+  buzz_state=digitalRead(3);
+  if(buzz_state==HIGH){
+  	digitalWrite(8, HIGH);
+    digitalWrite(12, HIGH);
+    Serial.println(3);
+    
+  }else{
+  	digitalWrite(8, LOW);
+    digitalWrite(12, LOW);
+    Serial.println(3);
+  }
+  delay(100);
+}
